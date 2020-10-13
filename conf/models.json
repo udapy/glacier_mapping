@@ -24,7 +24,7 @@
       "numParameters": null,
       "args": {
         "inchannels": 15,
-        "outchannels": 1,
+        "outchannels": 3,
         "net_depth": 5,
         "channel_layer": 16
       },
