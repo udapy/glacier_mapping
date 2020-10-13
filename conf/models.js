@@ -28,6 +28,11 @@ export default {
         "net_depth": 5,
         "channel_layer": 16
       },
+      "inputShape": [
+        512,
+        512,
+        15
+      ],
       "fn": "runs/run_clean_debris/models/model_final.pt",
       "fineTuneLayer": 0,
       "process": "conf/postprocess.yaml"
