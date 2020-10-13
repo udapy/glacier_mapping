@@ -23,16 +23,11 @@ export default {
       "type": "pytorch",
       "numParameters": null,
       "args": {
-        "inchannels": 3,
-        "outchannels": 1,
+        "inchannels": 15,
+        "outchannels": 3,
         "net_depth": 5,
         "channel_layer": 16
       },
-      "inputShape": [
-        512,
-        512,
-        3
-      ],
       "fn": "runs/run_clean_debris/models/model_final.pt",
       "fineTuneLayer": 0,
       "process": "conf/postprocess.yaml"
