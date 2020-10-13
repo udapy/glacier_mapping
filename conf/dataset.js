@@ -47,8 +47,8 @@ export default {
       "attribution": "Georeferenced Image"
     },
     "initialLocation": [
-      30.3090779,
-      82.8789515
+      29.827895162107069,
+      92.135204903724897
     ],
     "url": "outputs/pred_tiles/{z}/{x}/{-y}.png",
     "initialZoom": 10
