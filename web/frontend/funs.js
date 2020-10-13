@@ -112,8 +112,7 @@ function predPatch(event) {
 
   $.ajax({
     type: 'POST',
-    // url: "http://test.westus2.cloudapp.azure.com:8080/predPatch",
-    url: "http://0.0.0.0:8080/predPatch",
+    url: "http://glaciers-vm.westus2.cloudapp.azure.com:8080/predPath",
     contentType: "application/json",
     crossDomain:'true',
     dataType: "json",
