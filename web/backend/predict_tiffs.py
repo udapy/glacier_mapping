@@ -2,6 +2,8 @@
 Output prediction tiffs on all tiffs in a directory
 
 python3 -m predict_tiffs -d $DATA_DIR/pipeline_demo/demo_data/data/2005/nepal/ -m $DATA_DIR/runs/minimal_run/models/model_final.pt
+
+python3 -m predict_tiffs -d $DATA_DIR/web_data/img_data/ -m $DATA_DIR/expers/geographic/splits/0/runs/demo/models/model_final.pt -p $DATA_DIR/expers/geographic/splits/0/postprocess.yaml
 """
 from addict import Dict
 import argparse
