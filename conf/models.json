@@ -23,7 +23,7 @@
       "type": "pytorch",
       "numParameters": null,
       "args": {
-        "inchannels": 3,
+        "inchannels": 15,
         "outchannels": 1,
         "net_depth": 5,
         "channel_layer": 16
