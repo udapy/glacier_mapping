@@ -134,7 +134,7 @@ function predPatch(event) {
 
   $.ajax({
     type: 'POST',
-    url: backendUrl,
+    url: backendUrl + "/predPatch",
     contentType: "application/json",
     crossDomain:'true',
     dataType: "json",

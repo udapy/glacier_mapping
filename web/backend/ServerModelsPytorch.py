@@ -38,7 +38,7 @@ class PytorchUNet(BackendModel):
         return run_model_on_tile(img, self.model, num_output_channels=self.outchannels)
 
     def preprocess(self, img, **kwargs):
-        conf = yaml.safe_load(self.process_conf)
+        conf = yaml.safe_load(open(self.process_conf, "r"))
         pf = conf["process_funs"]
         img = np.nan_to_num(img, nan=pf["impute"]["value"])
 

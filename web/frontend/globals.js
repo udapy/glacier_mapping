@@ -43,4 +43,4 @@ export let map = L.map("map", {
   layers: [tiles["5-4-2_left"], tiles["5-4-2_right"]]
 });
 
-export let backendUrl = "http://glaciers-vm.westus2.cloudapp.azure.com:8080/predPatch";
+export let backendUrl = "http://glaciers-vm.westus2.cloudapp.azure.com:8080";
