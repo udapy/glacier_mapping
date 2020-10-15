@@ -28,7 +28,7 @@ bottle.TEMPLATE_PATH.insert(0, DATA_DIR + "/views") # let bottle know where we a
 
 with open("conf/models.json", "r") as f:
     models = json.load(f)
-    model = PytorchUNet(models["benjamins_unet"]["model"], 0)
+    model = PytorchUNet(models["benjamins_unet"]["model"])
 
 #---------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------
