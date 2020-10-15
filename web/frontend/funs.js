@@ -134,7 +134,7 @@ function predPatch(event) {
 
   $.ajax({
     type: 'POST',
-    url: "http://glaciers-vm.westus2.cloudapp.azure.com:8080/predPatch",
+    url: backendUrl,
     contentType: "application/json",
     crossDomain:'true',
     dataType: "json",
@@ -192,8 +192,18 @@ function getPolyAround(latlng, radius){
 }
 
 function retrain(polygons) {
-  let p = polygons[polygons.length - 1];
-  console.log(p._latlngs[0])
+  console.log(state.polygons);
+
+  $.ajax({
+    type: 'POST',
+    url: backendUrl,
+    contentType: "application/json",
+    crossDomain:'true',
+    dataType: "json",
+    data: JSON.stringify({ polygons: state.polygons }),
+    success: function(response){
+      displayPred(response);},
+  });
 }
 
 function switchColors() {
@@ -232,5 +242,6 @@ function labelsEdited(event) {
     type: label_type,
     latlngs: layers[d3.max(keys)]._latlngs[0]
   });
+  console.log(state.polygons)
 }
 
