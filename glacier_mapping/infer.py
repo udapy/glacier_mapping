@@ -99,8 +99,6 @@ def inference(img, model, process_conf, overlap=0, infer_size=1024, device=None)
     :return prediction: A segmentation mask of the same width and height as img.
     :type prediction: np.array
     """
-    process_opts = Dict(yaml.safe_load(open(process_conf, "r")))
-    channels = process_opts.process_funs.extract_channel.img_channels
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -121,7 +119,7 @@ def inference(img, model, process_conf, overlap=0, infer_size=1024, device=None)
 
     for i in range(I):
         for j in range(J):
-            patch, _ = postprocess_tile(slice_imgs[i, j, 0], process_opts.process_funs)
+            patch = slice_imgs[i, j, 0]
             patches[i, j, :] = patch
             patch = np.transpose(patch, (2, 0, 1))
             patch = torch.from_numpy(patch).float().unsqueeze(0)
@@ -135,6 +133,61 @@ def inference(img, model, process_conf, overlap=0, infer_size=1024, device=None)
     x = merge_patches(patches, overlap)
     y_hat = merge_patches(predictions, overlap)
     return x[:size_[1], :size_[2], :], y_hat[:size_[1], :size_[2], :]
+
+
+def run_model_on_tile(tile, model, device=None, batch_size=256, num_output_channels=3,
+                      input_size=256, down_weight_padding=10):
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    model.eval()
+    height, width, _ = tile.shape
+    stride_x = input_size - down_weight_padding*2
+    stride_y = input_size - down_weight_padding*2
+
+    output = np.zeros((height, width, num_output_channels), dtype=np.float32)
+    counts = np.zeros((height, width), dtype=np.float32) + 0.000000001
+    kernel = np.ones((input_size, input_size), dtype=np.float32) * 0.1
+    kernel[10:-10, 10:-10] = 1
+    kernel[down_weight_padding:down_weight_padding+stride_y,
+           down_weight_padding:down_weight_padding+stride_x] = 5
+
+    # build batches for parallelizing inference
+    batches = []
+    batch_indices = []
+    batch_count = 0
+    for y_index in (list(range(0, height - input_size, stride_y)) + [height - input_size,]):
+        for x_index in (list(range(0, width - input_size, stride_x)) + [width - input_size,]):
+            img = tile[y_index:y_index+input_size, x_index:x_index+input_size, :].copy()
+            img = np.rollaxis(img, 2, 0).astype(np.float32)
+
+            batches.append(img)
+            batch_indices.append((y_index, x_index))
+            batch_count += 1
+
+    # compute predictions on all the batches
+    batches = np.array(batches)
+    model_output = []
+    for i in range(0, batch_count, batch_size):
+        batch = torch.from_numpy(batches[i:i+batch_size])
+        batch = batch.to(device)
+        with torch.no_grad():
+            outputs = model(batch)
+        outputs = outputs.cpu().numpy()
+        outputs = np.rollaxis(outputs, 1, 4)
+        model_output.append(outputs)
+    model_output = np.concatenate(model_output, axis=0)
+
+    for i, (y, x) in enumerate(batch_indices):
+        output[y:y+input_size, x:x+input_size] += model_output[i] * kernel[..., np.newaxis]
+        counts[y:y+input_size, x:x+input_size] += kernel
+
+    output = output / counts[..., np.newaxis]
+    return output
+
+
+
+
 
 
 def next_multiple(size):
