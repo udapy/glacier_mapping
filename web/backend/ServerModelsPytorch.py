@@ -45,7 +45,7 @@ class PytorchUNet(BackendModel):
         stats = json.load(open(pf_conf["normalize"]["stats_path"], "r"))
         img = np.transpose(img, (1, 2, 0))
         img = pf.normalize_(img, stats["means"], stats["stds"])
-        channels = pf["extract_channel"]["img_channels"]
+        channels = pf_conf["extract_channel"]["img_channels"]
         return img[:, :, channels]
 
 
