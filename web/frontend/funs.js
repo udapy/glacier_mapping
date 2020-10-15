@@ -31,10 +31,16 @@ export function initializeMap() {
     if (event.originalEvent.key == "Shift") {
       predictionExtent(event.latlng, "add");
     }
+    if (event.originalEvent.key == "Enter") {
+      retrain(state.polygons);
+    }
   });
+
+  map.on('pm:drawstart', switchColors);
+  map.on('pm:drawend', labelsEdited);
 }
 
-export function initializeSelect() {
+export function layerSelect() {
   let layers = ["#layerLeft", "#layerRight"];
   for (let i in layers) {
     d3.select(layers[i])
@@ -47,6 +53,19 @@ export function initializeSelect() {
       .attr("value", (d) => d)
       .text((d) => d);
   }
+}
+
+export function labelSelect() {
+  let labels = ["clean_ice", "debris", "background"];
+  d3.select("#labels")
+    .on("change", switchLabels);
+
+  d3.select("#labels")
+    .selectAll("option")
+    .data(labels).enter()
+    .append("option")
+    .attr("value", (d) => d)
+    .text((d) => d);
 }
 
 function switchLayers() {
@@ -64,6 +83,9 @@ function switchLayers() {
   map.addLayer(tiles[newValues[1]]);
   sideBySide.setLeftLayers(tiles[newValues[0]]);
   sideBySide.setRightLayers(tiles[newValues[1]]);
+}
+
+function switchLabels() {
 }
 
 function predictionExtent(latlng) {
@@ -128,9 +150,8 @@ function predPatch(event) {
       models: models["benjamins_unet"]
     }),
     success: function(response){
-      console.log("got response")
-      console.log(response)
-      displayPred(response);},});
+      displayPred(response);},
+  });
 }
 
 function decode_img(img_str) {
@@ -169,3 +190,47 @@ function getPolyAround(latlng, radius){
           [bottomright.lat, bottomright.lng],
           [bottomright.lat, topleft.lng]];
 }
+
+function retrain(polygons) {
+  let p = polygons[polygons.length - 1];
+  console.log(p._latlngs[0])
+}
+
+function switchColors() {
+  let label_type = d3.select("#labels").property('value'),
+      options = {};
+
+  if (label_type == "clean_ice") {
+    map.pm.setPathOptions({
+      color: '#add8e6',
+      fillColor: '#add8e6',
+      fillOpacity: 0.4,
+    });
+  } else if (label_type == "debris") {
+    map.pm.setPathOptions({
+      color: '#e6bbad',
+      fillColor: '#e6bbad',
+      fillOpacity: 0.4,
+    });
+  } else {
+    map.pm.setPathOptions({
+      color: '#c6cbcd',
+      fillColor: '#c6cbcd',
+      fillOpacity: 0.4,
+    });
+  }
+}
+
+
+function labelsEdited(event) {
+  //state.polygons.push(map._layers[n_layers - 1]);
+  let layers = event.sourceTarget._layers,
+      keys = Object.keys(layers).map((d) => parseInt(d)),
+      label_type = d3.select("#labels").property('value');
+
+  state.polygons.push({
+    type: label_type,
+    latlngs: layers[d3.max(keys)]._latlngs[0]
+  });
+}
+
