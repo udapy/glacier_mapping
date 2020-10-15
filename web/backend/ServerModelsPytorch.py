@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 from glacier_mapping.models.unet_dropout import UnetDropout
-import glacier_mapping.data.process_slice_funs as pf
+import glacier_mapping.data.process_slices_funs as pf
 from glacier_mapping.infer import run_model_on_tile
 from web.backend.ServerModelsAbstract import BackendModel
 import numpy as np
