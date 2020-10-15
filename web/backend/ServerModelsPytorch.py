@@ -39,10 +39,10 @@ class PytorchUNet(BackendModel):
 
     def preprocess(self, img, **kwargs):
         conf = yaml.safe_load(open(self.process_conf, "r"))
-        pf = conf["process_funs"]
-        img = np.nan_to_num(img, nan=pf["impute"]["value"])
+        pf_conf = conf["process_funs"]
+        img = np.nan_to_num(img, nan=pf_conf["impute"]["value"])
 
-        stats = json.load(open(pf["normalize"]["stats_path"], "r"))
+        stats = json.load(open(pf_conf["normalize"]["stats_path"], "r"))
         img = pf.normalize_(img, stats["means"], stats["stds"])
         channels = pf["extract_channel"]["img_channels"]
         return img[:, :, channels]
