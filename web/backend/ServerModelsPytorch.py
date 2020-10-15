@@ -15,7 +15,7 @@ import json
 DATA_DIR = os.environ["DATA_DIR"]
 
 class PytorchUNet(BackendModel):
-    def __init__(self, model_spec, gpuid, verbose=False):
+    def __init__(self, model_spec):
         self.input_size = model_spec["inputShape"]
         self.downweight_padding = 0
         self.stride_x, self.stride_y, _ = self.input_size
@@ -23,19 +23,20 @@ class PytorchUNet(BackendModel):
         self.outchannels = model_spec["args"]["outchannels"]
 
         model_path = Path(DATA_DIR, model_spec["fn"])
+
+        self.device = torch.device("cpu")
         if torch.cuda.is_available():
-            state = torch.load(model_path)
-        else:
-            state = torch.load(model_path, map_location=torch.device("cpu"))
+            self.device = torch.device("cuda")
+        state = torch.load(model_path, map_location=self.device)
 
         self.model = UnetDropout(**model_spec["args"])
         self.model.load_state_dict(state)
         self.model.eval()
-        self.verbose = verbose
+        self.model.to(self.device)
 
     def run(self, img, **kwargs):
         img = self.preprocess(img)
-        return run_model_on_tile(img, self.model, num_output_channels=self.outchannels)
+        return run_model_on_tile(img, self.model, self.device, outchannels=self.outchannels)
 
     def preprocess(self, img, **kwargs):
         conf = yaml.safe_load(open(self.process_conf, "r"))

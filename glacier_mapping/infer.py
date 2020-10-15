@@ -66,17 +66,13 @@ def predict_tiff(path, model, subset_size=None, conf_path="conf/postprocess.yaml
     return img, x, y_hat
 
 
-def run_model_on_tile(tile, model, device=None, batch_size=256, num_output_channels=3,
+def run_model_on_tile(tile, model, device=None, batch_size=256, outchannels=3,
                       input_size=256, down_weight_padding=10):
-    if device is None:
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    model.eval()
     height, width, _ = tile.shape
     stride_x = input_size - down_weight_padding*2
     stride_y = input_size - down_weight_padding*2
 
-    output = np.zeros((height, width, num_output_channels), dtype=np.float32)
+    output = np.zeros((height, width, outchannels), dtype=np.float32)
     counts = np.zeros((height, width), dtype=np.float32) + 0.000000001
     kernel = np.ones((input_size, input_size), dtype=np.float32) * 0.1
     kernel[10:-10, 10:-10] = 1
