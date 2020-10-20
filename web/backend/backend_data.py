@@ -29,7 +29,7 @@ def reproject_directory(input_dir, output_dir, dst_epsg=3857):
         output_path = pathlib.Path(output_dir, f"{im_path.stem}-warped.tif")
         subprocess.call(["gdalwarp", "-s_srs", str(loaded_im.crs), "-t_srs",
                          f"EPSG:{dst_epsg}", str(im_path),
-                         "-wo", "NUM_THREADS=ALL_CPUS", str(output_path)])
+                         "-wo", "NUM_THREADS=ALL_CPUS", str(output_path), "BIGTIFF=YES"])
 
 
 def vrt_from_dir(input_dir, output_path="./output.vrt", **kwargs):
