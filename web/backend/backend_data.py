@@ -67,7 +67,7 @@ if __name__ == "__main__":
     parser.add_argument("-z", "--zoomLevels", nargs="+", default="8-14")
     args = parser.parse_args()
 
-  #  reproject_directory(args.input_dir, args.output_dir)
+    reproject_directory(args.input_dir, args.output_dir)
     vrt_path = pathlib.Path(args.output_dir, args.output_name)
     vrt_from_dir(args.output_dir, str(vrt_path), bandList=args.bandList)
     if args.tile:
