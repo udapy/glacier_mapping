@@ -35,7 +35,7 @@ export default {
       30.4290779,
       82.8789515
     ],
-    "url": "outputs/tiles/{z}/{x}/{-y}.png",
+    "url": "outputs/basemap/{z}/{x}/{-y}.png",
     "initialZoom": 11
   },
   "predictionLayer": {
@@ -55,7 +55,7 @@ export default {
   },
   "dataLayer": {
     "padding": 1100,
-    "path": "web/frontend/outputs/tiles/output-full.vrt",
+    "path": "web/frontend/outputs/basemap/output-full.vrt",
     "type": "GLACIER"
   },
   "metadata": {

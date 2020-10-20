@@ -35,12 +35,12 @@
       28.1517627,
       93.1757374
     ],
-    "url": "outputs/tiles/{z}/{x}/{-y}.png",
+    "url": "outputs/basemap/{z}/{x}/{-y}.png",
     "initialZoom": 10
   },
   "dataLayer": {
     "padding": 1100,
-    "path": "web/frontend/outputs/tiles/output-full.vrt",
+    "path": "web/frontend/outputs/basemap/output-full.vrt",
     "type": "GLACIER"
   },
   "metadata": {

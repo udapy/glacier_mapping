@@ -10,8 +10,8 @@ source .env
 export WEB_DIR=$DATA_DIR/web_data/
 
 # data prep for backend
-python3 -m web.backend.backend_data -d $WEB_DIR/img_data/ -o $ROOT_DIR/web/frontend/outputs/tiles/ -n output-full.vrt # tiles/ directory must exist
-python3 -m web.backend.backend_data -d $WEB_DIR/img_data/ -o $ROOT_DIR/web/frontend/outputs/tiles/ -n output-245.vrt --bandList 5 4 2
+python3 -m web.backend.backend_data -d $DATA_DIR/analysis_images/ -o $ROOT_DIR/web/frontend/outputs/tiles/ -n output-full.vrt # tiles/ directory must exist
+python3 -m web.backend.backend_data -d $DATA_DIR/analysis_images/ -o $ROOT_DIR/web/frontend/outputs/tiles/ -n output-245.vrt --bandList 5 4 2
 python3 -m web.backend.backend_data -d $WEB_DIR/processed/preds/ -o $ROOT_DIR/web/frontend/outputs/pred_tiles/ -n y_hat.vrt --bandList 1 --tile True # tiles/ directory must exist
 
 # copy tile outputs to $ROOT_DIR/web/outputs/

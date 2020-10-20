@@ -233,15 +233,21 @@ function switchColors() {
 
 
 function labelsEdited(event) {
-  //state.polygons.push(map._layers[n_layers - 1]);
   let layers = event.sourceTarget._layers,
       keys = Object.keys(layers).map((d) => parseInt(d)),
       label_type = d3.select("#labels").property('value');
 
-  state.polygons.push({
+  state.polygons[d3.max(keys)] = {
     type: label_type,
     latlngs: layers[d3.max(keys)]._latlngs[0]
-  });
-  console.log(state.polygons)
+  };
+  console.log(state.polygons);
 }
 
+function polygonClicked(event) {
+  // get coordinates of clicked polygon
+
+  state.selected_polygons.push({
+    // select it
+  });
+}

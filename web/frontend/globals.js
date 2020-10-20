@@ -2,7 +2,8 @@ import layerInfo from '../../conf/layerInfo.js';
 import dataset from '../../conf/dataset.js';
 
 export const state = {
-  polygons: [],
+  polygons: {},
+  selected_polygons: {}, // true or false for each polygon in polygons
   box: null
 }
 

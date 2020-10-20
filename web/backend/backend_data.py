@@ -5,7 +5,7 @@ Utilities for Managing VRTs
 alternatively,
 
 gdal_translate -ot Byte output-245.vrt output-245-byte.vrt
-gdal2tiles.py -z 8-15 --processes 8 output-245-byte.vrt .
+gdal2tiles.py -z 8 --processes 25 output-245-byte.vrt .
 
 2020-05-05 18:11:08
 """
