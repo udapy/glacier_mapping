@@ -150,7 +150,9 @@ function predPatch(event) {
       models: models["benjamins_unet"]
     }),
     success: function(response){
-      displayPred(response);},
+      displayPred(response);
+      // update polygon list. Initialize all the unselected for labeling.
+    },
   });
 }
 
@@ -237,6 +239,7 @@ function labelsEdited(event) {
       keys = Object.keys(layers).map((d) => parseInt(d)),
       label_type = d3.select("#labels").property('value');
 
+  // update coordinates 2
   state.polygons[d3.max(keys)] = {
     type: label_type,
     latlngs: layers[d3.max(keys)]._latlngs[0]
@@ -246,8 +249,6 @@ function labelsEdited(event) {
 
 function polygonClicked(event) {
   // get coordinates of clicked polygon
+  // toggle whether it's in the set of selected for labeling
 
-  state.selected_polygons.push({
-    // select it
-  });
 }

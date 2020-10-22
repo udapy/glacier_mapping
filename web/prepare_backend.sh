@@ -9,10 +9,11 @@ source .env
 export WEB_DIR=$DATA_DIR/web_data/
 
 # data prep for backend
-python3 -m web.backend.backend_data -d $DATA_DIR/analysis_images/ -o $DATA_DIR/web/basemap/ -n output-full.vrt;
-python3 -m web.backend.backend_data -d $DATA_DIR/analysis_images/ -o $DATA_DIR/web/basemap/ -n output-245.vrt --bandList 5 4 2
+python3 -m web.backend.backend_data -d $DATA_DIR/unique_tiles/ -o $DATA_DIR/web/basemap2/ -n output-full.vrt;
+python3 -m web.backend.backend_data -d $DATA_DIR/unique_tiles/ -o $DATA_DIR/web/basemap2/ -n output-245.vrt --bandList 5 4 2
 
 cd $DATA_DIR/web/basemap/
+gdal_translate -ot Byte output-245.vrt output-245-byte.vrt
 
 for i in $( seq 8 14 )
 do

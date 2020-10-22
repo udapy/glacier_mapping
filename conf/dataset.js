@@ -55,7 +55,7 @@ export default {
   },
   "dataLayer": {
     "padding": 1100,
-    "path": "web/frontend/outputs/basemap/output-full.vrt",
+    "path": "/datadrive/glaciers/web/basemap/output-full.vrt",
     "type": "GLACIER"
   },
   "metadata": {
