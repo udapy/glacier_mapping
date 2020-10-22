@@ -6,6 +6,7 @@ import fiona
 import fiona.transform
 import json
 import os
+import pathlib
 import utm
 
 _DATASET_FN = "conf/dataset.json"
