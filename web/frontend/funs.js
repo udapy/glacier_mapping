@@ -167,7 +167,7 @@ function displayPred(data, show_pixel_map=false) {
     L.imageOverlay(decode_img(data["output_soft"]), coords).addTo(map);
   }
 
-  //state.polygons.push(L.geoJSON(data["y_geo"], {pmIgnore: false}));
+  state.polygons.push(L.geoJSON(data["y_geo"], {pmIgnore: false}));
   L.layerGroup(state.polygons).addTo(map).on("zoomend", (e) => { map.fire("viewreset"); return; });
 }
 

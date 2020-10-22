@@ -35,9 +35,7 @@ class PytorchUNet(BackendModel):
         self.model.to(self.device)
 
     def run(self, img, **kwargs):
-        print(img.shape)
         img = self.preprocess(img)
-        print(img.shape)
         return run_model_on_tile(img, self.model, self.device, outchannels=self.outchannels)
 
     def preprocess(self, img, **kwargs):

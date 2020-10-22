@@ -2,10 +2,9 @@ import layerInfo from '../../conf/layerInfo.js';
 import dataset from '../../conf/dataset.js';
 
 export const state = {
-  polygons: {},
-  selected_polygons: {}, // true or false for each polygon in polygons
+  polygons: [],
   box: null
-}
+};
 
 export const tiles = {
   "ESRI_left": L.tileLayer(

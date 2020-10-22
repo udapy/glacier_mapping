@@ -18,9 +18,9 @@ import rasterio
 from osgeo import gdal
 
 
-def reproject_directory(input_dir, output_dir, dst_epsg=3857):
+def reproject_directory(input_dir, output_dir, dst_epsg=4326):
     """
-    Warp all Tiffs from one directory to 3857
+    Warp all Tiffs from one directory to 4326
     """
     inputs = pathlib.Path(input_dir).glob("*.tif*")
     for im_path in inputs:
