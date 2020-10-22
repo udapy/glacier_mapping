@@ -23,4 +23,4 @@ done;
 # copy tile outputs to $ROOT_DIR/web/outputs/
 # mkdir -p $ROOT_DIR/web/outputs/tiles/
 # you will see results at http://0.0.0.0:4040/web/frontend/index.html
-python3 -m web.backend.server & python3 -m web.frontend_server
+python3 -m web.frontend_server & python3 -m web.backend.server

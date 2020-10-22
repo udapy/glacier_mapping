@@ -45,5 +45,5 @@ def _load_dataset(dataset):
     }
 
 def load_dataset():
-    dataset_json = json.load(open(os.path.join(os.environ["ROOT_DIR"], _DATASET_FN),"r"))
+    dataset_json = json.load(open(_DATASET_FN,"r"))
     return _load_dataset(dataset_json)
