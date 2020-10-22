@@ -40,7 +40,7 @@
   },
   "dataLayer": {
     "padding": 1100,
-    "path": "/datadrive/glaciers/web/basemap/output-full.vrt",
+    "path": "web/basemap/output-full.vrt",
     "type": "GLACIER"
   },
   "metadata": {

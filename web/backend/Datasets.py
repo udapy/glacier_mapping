@@ -28,22 +28,12 @@ def get_area_from_geometry(geom, src_crs="epsg:4326"):
 
 
 def _load_dataset(dataset):
-    # Step 2: make sure the dataLayer exists
-    if dataset["dataLayer"]["type"] == "CUSTOM":
-        fn = os.path.join(DATA_DIR, dataset["dataLayer"]["path"])
-        if not os.path.exists(fn):
-            return False # TODO: maybe we should make these errors more descriptive (explain why we can't load a dataset)
-
-    # Step 3: setup the appropriate DatasetLoader
-    if dataset["dataLayer"]["type"] == "GLACIER":
-        data_loader = DL.DataLoaderGlacier(dataset["dataLayer"]["padding"], dataset["dataLayer"]["path"])
-    else:
-        raise ValueError(f"Cannot find loader for {dataset['dataLayer']['type']}")
-
-    return {
-        "data_loader": data_loader,
-    }
+    print(dataset)
+    data_dir = pathlib.Path(os.environ["DATA_DIR"])
+    data_loader = DL.DataLoaderGlacier(data_dir / dataset["dataLayer"]["padding"], dataset["dataLayer"]["path"])
+    print(data_loader)
+    return {"data_loader": data_loader}
 
 def load_dataset():
-    dataset_json = json.load(open(_DATASET_FN,"r"))
+    dataset_json = json.load(open(os.path.join(os.environ["ROOT_DIR"], _DATASET_FN),"r"))
     return _load_dataset(dataset_json)
