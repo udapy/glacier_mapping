@@ -205,12 +205,15 @@ class DataLoaderGlacier(DataLoader):
 
     def get_data_from_extent(self, extent):
         # transform the query extent to the source tiff's CRS
+        print(self._path)
         source_img = rasterio.open(self._path)
+        print(source_img)
         img_crs = source_img.meta["crs"]
         extent = extent_to_transformed_geom(extent, "EPSG:3857")
         extent = shapely.geometry.shape(extent)
 
         # extract that subwindow from the overall tiff
+        print(extent)
         window = from_bounds(
             left=extent.bounds[0],
             bottom=extent.bounds[1],
@@ -218,6 +221,7 @@ class DataLoaderGlacier(DataLoader):
             top=extent.bounds[3],
             transform=source_img.transform
         )
+        print(window.shape)
 
         return {
             "src_img": source_img.read(window=window),
