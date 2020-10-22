@@ -31,7 +31,7 @@ def get_area_from_geometry(geom, src_crs="epsg:4326"):
 def _load_dataset(dataset):
     print(dataset)
     data_dir = pathlib.Path(os.environ["DATA_DIR"])
-    data_loader = DL.DataLoaderGlacier(data_dir / dataset["dataLayer"]["padding"], dataset["dataLayer"]["path"])
+    data_loader = DL.DataLoaderGlacier(dataset["dataLayer"]["padding"], data_dir / dataset["dataLayer"]["path"])
     print(data_loader)
     return {"data_loader": data_loader}
 
