@@ -32,8 +32,8 @@ export default {
       "attribution": "Georeferenced Image"
     },
     "initialLocation": [
-      30.4290779,
-      82.8789515
+      28.8697666,
+      93.3425577
     ],
     "url": "basemap/{z}/{x}/{-y}.png",
     "initialZoom": 11
