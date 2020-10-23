@@ -73,7 +73,7 @@ def pred_patch():
     )
 
     # extract geojson associated with the prediction
-    y_geo = DL.convert_to_geojson(y_hat[:, :, 2], loaded_query["src_bounds"])
+    y_geo = DL.convert_to_geojson(y_hat[:, :, 1], loaded_query["src_bounds"])
     data["y_geo"] = y_geo
 
     # Convert images to base64 and return
