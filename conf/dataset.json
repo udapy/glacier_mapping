@@ -35,7 +35,7 @@
       28.1517627,
       93.1757374
     ],
-    "url": "file://datadrive/glaciers/web/basemap/{z}/{x}/{-y}.png",
+    "url": "web/basemap/{z}/{x}/{-y}.png",
     "initialZoom": 10
   },
   "dataLayer": {

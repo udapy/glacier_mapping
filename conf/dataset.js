@@ -35,7 +35,7 @@ export default {
       30.4290779,
       82.8789515
     ],
-    "url": "file://datadrive/glaciers/web/basemap/{z}/{x}/{-y}.png",
+    "url": "outputs/basemap/{z}/{x}/{-y}.png",
     "initialZoom": 11
   },
   "predictionLayer": {
